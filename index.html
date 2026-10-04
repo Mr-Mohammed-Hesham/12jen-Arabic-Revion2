@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📜 امتحان اللغة العربية - الصف الثاني عشر عام | Mr. Mohammed Hesham</title>
+<meta name="description" content="امتحان تفاعلي شامل في اللغة العربية - الصف الثاني عشر عام">
+<meta name="author" content="Mr. Mohammed Hesham">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;900&family=Inter:wght@400;600;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Cairo', 'Amiri', sans-serif; }
+body.en-mode { font-family: 'Inter', sans-serif; }
+.arabic-poem {
+font-family: 'Scheherazade New', 'Amiri', serif;
+font-size: 1.3em;
+line-height: 2.2;
+color: #78350f;
+text-align: center;
+}
+.correct { background-color: #dcfce7 !important; border-color: #16a34a !important; }
+.incorrect { background-color: #fee2e2 !important; border-color: #dc2626 !important; }
+.timer-warning { color: #dc2626 !important; animation: pulse 1s infinite; }
+@keyframes pulse { 50% { opacity: 0.7; } }
+@media print { .no-print { display: none !important; } }
+.success-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.875rem; }
+.grade-excellent { background: #dcfce7; color: #166534; }
+.grade-good { background: #fef3c7; color: #92400e; }
+.grade-pass { background: #dbeafe; color: #1e40af; }
+.grade-fail { background: #fee2e2; color: #991b1b; }
+.lang-switch {
+position: fixed; top: 16px; left: 16px; z-index: 100;
+background: white; padding: 6px; border-radius: 30px;
+box-shadow: 0 4px 15px rgba(0,0,0,0.15); display: flex; gap: 4px;
+border: 2px solid #b45309;
+}
+[dir="ltr"] .lang-switch { left: auto; right: 16px; }
+.lang-btn {
+padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: bold;
+transition: all 0.3s; border: none; font-size: 0.875rem;
+background: transparent; color: #6b7280;
+}
+.lang-btn.active { background: #b45309; color: white; box-shadow: 0 2px 6px rgba(180,83,9,0.4); }
+.lang-btn:hover:not(.active) { background: #fef3c7; color: #b45309; }
+.shuffle-badge {
+display: inline-block;
+background: linear-gradient(135deg, #b45309, #92400e);
+color: white; padding: 4px 12px; border-radius: 20px;
+font-size: 0.75rem; font-weight: bold; margin-right: 8px;
+animation: pulse 2s infinite;
+}
+.math-display {
+display: inline-block; direction: ltr;
+font-family: 'Amiri', 'Times New Roman', serif;
+font-size: 1.15em; font-style: italic;
+padding: 2px 8px; background: #fef3c7;
+border-radius: 6px; margin: 2px;
+color: #92400e; font-weight: 600;
+}
+.save-indicator {
+position: fixed; bottom: 20px; left: 20px; z-index: 200;
+background: #10b981; color: white; padding: 8px 16px;
+border-radius: 20px; font-size: 0.8rem; font-weight: bold;
+opacity: 0; transition: opacity 0.3s; pointer-events: none;
+box-shadow: 0 4px 12px rgba(16,185,129,0.4);
+}
+.save-indicator.show { opacity: 1; }
+.poem-box {
+background: linear-gradient(135deg, #fef3c7, #fde68a);
+border: 3px double #b45309;
+border-radius: 16px;
+padding: 20px;
+margin: 15px 0;
+box-shadow: 0 4px 15px rgba(180,83,9,0.15);
+}
+.poem-box::before {
+content: '❦';
+display: block;
+text-align: center;
+color: #b45309;
+font-size: 1.5em;
+margin-bottom: 10px;
+}
+.poem-box::after {
+content: '❦';
+display: block;
+text-align: center;
+color: #b45309;
+font-size: 1.5em;
+margin-top: 10px;
+}
+.writing-area {
+width: 100%;
+min-height: 150px;
+padding: 12px;
+border: 2px solid #d97706;
+border-radius: 10px;
+font-family: 'Cairo', sans-serif;
+font-size: 1em;
+background: #fffbeb;
+resize: vertical;
+}
+.writing-area:focus {
+outline: none;
+border-color: #b45309;
+box-shadow: 0 0 0 3px rgba(180,83,9,0.2);
+}
+.svg-graph {
+display: block;
+margin: 12px auto;
+background: white;
+border: 2px solid #e5e7eb;
+border-radius: 12px;
+padding: 8px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.graph-container { text-align: center; margin: 10px 0; }
+</style>
+</head>
+<body class="bg-gradient-to-br from-amber-50 to-yellow-50 text-gray-800 p-4 md:p-8 min-h-screen">
+<div class="lang-switch no-print">
+<button class="lang-btn active" onclick="setLanguage('ar')" id="btn-ar">عربي</button>
+<button class="lang-btn" onclick="setLanguage('en')" id="btn-en">EN</button>
+</div>
+<div id="saveIndicator" class="save-indicator">💾 <span data-ar="تم الحفظ" data-en="Saved">تم الحفظ</span></div>
+<div id="timer-container" class="max-w-4xl mx-auto mb-4 text-center no-print">
+<div class="bg-white p-4 rounded-2xl shadow-md inline-block border-2 border-amber-100">
+<span class="text-gray-600 ml-2" data-ar="⏰ الوقت المتبقي:" data-en="⏰ Time Remaining:">⏰ الوقت المتبقي:</span>
+<span id="timer" class="text-2xl font-bold text-amber-700 font-mono">90:00</span>
+<span class="shuffle-badge" data-ar="🎲 أسئلة عشوائية" data-en="🎲 Random Questions">🎲 أسئلة عشوائية</span>
+</div>
+</div>
+<div class="max-w-4xl mx-auto mb-6 flex flex-wrap gap-3 justify-center no-print">
+<button onclick="toggleAnswers()" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded-xl font-medium transition shadow cursor-pointer" data-ar="👀 إظهار / إخفاء الإجابات النموذجية" data-en="👀 Show / Hide Model Answers">👀 إظهار / إخفاء الإجابات النموذجية</button>
+<button onclick="window.print()" class="bg-gray-700 hover:bg-gray-900 text-white px-5 py-2 rounded-xl font-medium transition shadow cursor-pointer" data-ar="🖨️ طباعة" data-en="🖨️ Print">🖨️ طباعة</button>
+<button onclick="reshuffleExam()" class="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 text-white px-5 py-2 rounded-xl font-medium transition shadow cursor-pointer" data-ar="🔄 أسئلة جديدة" data-en="🔄 New Questions">🔄 أسئلة جديدة</button>
+<button onclick="clearProgress()" class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-medium transition shadow cursor-pointer" data-ar="🗑️ مسح التقدم" data-en="🗑️ Clear Progress">🗑️ مسح التقدم</button>
+</div>
+<header class="max-w-4xl mx-auto bg-white p-6 rounded-2xl shadow-lg mb-8 border-4 border-amber-500">
+<div class="text-center">
+<h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2" data-ar="📜 امتحان اللغة العربية" data-en="📜 Arabic Language Exam">📜 امتحان اللغة العربية</h1>
+<h2 class="text-lg text-amber-700 font-semibold" data-ar="الصف الثاني عشر - عام" data-en="Grade 12 - General">الصف الثاني عشر - عام</h2>
+<p class="text-sm text-gray-600 mt-2" data-ar="النص الشعري، القواعد، الأخطاء الوظيفية، والتعبير الكتابي" data-en="Poetic Text, Grammar, Functional Errors, and Writing">النص الشعري، القواعد، الأخطاء الوظيفية، والتعبير الكتابي</p>
+<p class="text-xs text-green-600 mt-2 font-semibold" data-ar="💾 يتم حفظ تقدمك تلقائياً - 18 سؤالاً في 4 أقسام" data-en="💾 Your progress is saved automatically - 18 questions in 4 sections">💾 يتم حفظ تقدمك تلقائياً - 18 سؤالاً في 4 أقسام</p>
+</div>
+<div class="mt-4 flex flex-wrap justify-center gap-4 text-sm text-gray-600">
+<span><span data-ar="📅 التاريخ:" data-en="📅 Date:">📅 التاريخ:</span> <input type="text" id="examDate" class="border-b-2 border-amber-300 bg-transparent w-28 text-center"></span>
+<span><span data-ar="😊 الاسم:" data-en="😊 Name:">😊 الاسم:</span> <input type="text" id="studentName" class="border-b-2 border-amber-300 bg-transparent w-32 text-center" placeholder="اكتب اسمك"></span>
+<span><span data-ar="🏫 الشعبة:" data-en="🏫 Class:">🏫 الشعبة:</span> <input type="text" id="studentClass" class="border-b-2 border-amber-300 bg-transparent w-28 text-center" placeholder="الشعبة"></span>
+<span><span data-ar="⏰ المدة: 90 دقيقة" data-en="⏰ Duration: 90 min">⏰ المدة: 90 دقيقة</span></span>
+<span><span data-ar="📊 المجموع: 100 درجة" data-en="📊 Total: 100 pts">📊 المجموع: 100 درجة</span></span>
+</div>
+</header>
+
+<!-- صندوق النص الشعري -->
+<div class="max-w-4xl mx-auto mb-8">
+<div class="poem-box">
+<h3 class="text-center text-xl font-bold text-amber-900 mb-4" data-ar="📜 النص الشعري: السيف أصدق أنباءً من الكتب - لأبي تمام" data-en="📜 Poetic Text: The Sword is More Truthful than Books - by Abu Tammam">📜 النص الشعري: السيف أصدق أنباءً من الكتب - لأبي تمام</h3>
+<div class="arabic-poem">
+السَّيْفُ أَصْدَقُ أَنْبَاءً مِنَ الكُتُبِ ... فِي حَدِّهِ الحَدُّ بَيْنَ الجِدِّ وَاللَّعِبِ<br>
+بِيضُ الصَّفَائِحِ لَا سُودُ الصَّحَائِفِ فِي ... مُتُونِهِنَّ جَلَاءُ الشَّكِّ وَالرِّيَبِ<br>
+وَالْعِلْمُ فِي شُهُبِ الْأَرْمَاحِ لَامِعَةً ... بَيْنَ الْخَمِيسَيْنِ لَا فِي السَّبْعَةِ الشُّهُبِ<br>
+أَيْنَ الرِّوَايَةُ بَلْ أَيْنَ النُّجُومُ وَمَا ... صَاغُوهُ مِنْ زُخْرُفٍ فِيهَا وَمِنْ كَذِبِ<br>
+تَخَرُّصًا وَأَحَادِيثًا مُلَفَّقَةً ... لَيْسَتْ بِنَبْعٍ إِذَا عُدَّتْ وَلَا غَرَبِ<br>
+عَجَائِبًا زَعَمُوا الْأَيَّامَ مُجْفِلَةً ... عَنْهُنَّ فِي صَفَرِ الْأَصْفَارِ أَوْ رَجَبِ<br>
+وَخَوَّفُوا النَّاسَ مِنْ دَهْيَاءَ مُظْلِمَةٍ ... إِذَا بَدَا الْكَوْكَبُ الْغَرْبِيُّ ذُو الذَّنَبِ<br>
+وَصَيَّرُوا الْأَبْرَجَ الْعُلْيَا مُرَتَّبَةً ... مَا كَانَ مُنْقَلِبًا أَوْ غَيْرَ مُنْقَلِبِ<br>
+يَقْضُونَ بِالْأَمْرِ عَنْهَا وَهِيَ غَافِلَةٌ ... مَا دَارَ فِي فُلْكٍ مِنْهَا وَلَا قُطُبِ<br>
+لَوْ بَيَّنَتْ قَطُّ أَمْرًا قَبْلَ مَوْقِعِهِ ... لَمْ تُخْفِ مَا حَلَّ بِالْأَوْثَانِ وَالصُّلُبِ<br>
+فَتْحُ الْفُتُوحِ تَعَالَى أَنْ يُحِيطَ بِهِ ... نَظْمٌ مِنَ الشِّعْرِ أَوْ نَثْرٌ مِنَ الْخُطَبِ
+</div>
+</div>
+</div>
+
+<main class="max-w-4xl mx-auto space-y-8" id="exam-content"></main>
+
+<div class="text-center no-print pb-8 mt-8">
+<button onclick="gradeExam()" class="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 text-white text-lg px-10 py-4 rounded-2xl font-bold shadow-xl transition transform hover:scale-105 cursor-pointer" data-ar="🎯 صحح إجاباتي!" data-en="🎯 Grade My Answers!">🎯 صحح إجاباتي!</button>
+</div>
+
+<div id="results-panel" class="max-w-4xl mx-auto mt-8 bg-white p-8 rounded-2xl shadow-2xl border-4 border-amber-500 hidden no-print">
+<h2 class="text-3xl font-bold text-gray-900 mb-6 text-center" data-ar="🏆 نتيجتك يا بطل! 🏆" data-en="🏆 Your Results, Champion! 🏆">🏆 نتيجتك يا بطل! 🏆</h2>
+<div class="grid md:grid-cols-3 gap-4 mb-6">
+<div class="bg-amber-50 p-4 rounded-xl text-center"><p data-ar="😊 الاسم" data-en="😊 Name">😊 الاسم</p><p id="res-name" class="font-bold text-xl text-amber-700">-</p></div>
+<div class="bg-yellow-50 p-4 rounded-xl text-center"><p data-ar="📅 التاريخ" data-en="📅 Date">📅 التاريخ</p><p id="res-date" class="font-bold text-xl text-yellow-700">-</p></div>
+<div class="bg-amber-50 p-4 rounded-xl text-center"><p data-ar="🌟 المجموع" data-en="🌟 Score">🌟 المجموع</p><p id="res-total" class="font-bold text-3xl text-amber-600">0 / 100</p></div>
+</div>
+<div class="text-center mb-6">
+<span id="success-badge" class="success-badge grade-excellent">-</span>
+<p id="success-percent" class="text-4xl font-bold text-amber-600 mt-2">0%</p>
+<p class="text-sm text-gray-500" data-ar="نسبة النجاح" data-en="Success Rate">نسبة النجاح</p>
+</div>
+<div class="bg-gray-50 p-6 rounded-xl mb-6">
+<h3 class="font-bold text-lg mb-4 text-gray-800" data-ar="📊 أدائك في كل قسم:" data-en="📊 Your Performance:">📊 أدائك في كل قسم:</h3>
+<div class="space-y-3" id="sections-performance"></div>
+</div>
+<div class="text-center mb-6">
+<button id="sendEmailBtn" onclick="sendResultsToEmail()" class="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700 text-white text-lg px-8 py-3 rounded-2xl font-bold shadow-xl transition transform hover:scale-105 cursor-pointer" data-ar="📧 أرسل النتيجة للمعلم" data-en="📧 Send Results to Teacher">📧 أرسل النتيجة للمعلم</button>
+<p id="emailStatus" class="text-sm mt-2 text-center font-medium"></p>
+</div>
+<div class="flex gap-3 justify-center">
+<button onclick="window.print()" class="bg-gray-700 text-white px-6 py-3 rounded-xl font-semibold" data-ar="🖨️ طباعة النتيجة" data-en="🖨️ Print Results">🖨️ طباعة النتيجة</button>
+</div>
+</div>
+
+<footer class="max-w-4xl mx-auto mt-10 mb-8 text-center text-gray-500 text-sm no-print">
+© <span data-ar="امتحان اللغة العربية - الصف الثاني عشر" data-en="Arabic Language Exam - Grade 12">امتحان اللغة العربية - الصف الثاني عشر</span> | Mr. Mohammed Hesham 📜
+</footer>
+
+<script>
+// ==================== EmailJS Settings ====================
+const PUBLIC_KEY = "Rb3Lq8tXaFmc5YHUH";
+const SERVICE_ID = "service_w15m64i";
+const TEMPLATE_ID = "template_5b0u2tq";
+const TARGET_EMAIL = "mohammedhesham872@gmail.com";
+emailjs.init(PUBLIC_KEY);
+
+// ==================== 💾 نظام حفظ التقدم ====================
+const STORAGE_KEY = 'arabic_grade12_exam_v1';
+const TOTAL_TIME = 5400; // 90 دقيقة
+const TOTAL_QUESTIONS = 18;
+const TOTAL_SECTIONS = 4;
+
+let currentSeed = null;
+let answersVisible = false;
+let saveIndicatorTimeout = null;
+let currentLang = 'ar';
+let timeRemaining = TOTAL_TIME;
+let timerInterval;
+let examData;
+let correctAnswersMap = {};
+
+function mulberry32(a) {
+return function() {
+var t = a += 0x6D2B79F5;
+t = Math.imul(t ^ t >>> 15, t | 1);
+t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+return ((t ^ t >>> 14) >>> 0) / 4294967296;
+}
+}
+
+let rng = null;
+
+function showSaveIndicator() {
+const indicator = document.getElementById('saveIndicator');
+indicator.classList.add('show');
+if (saveIndicatorTimeout) clearTimeout(saveIndicatorTimeout);
+saveIndicatorTimeout = setTimeout(() => indicator.classList.remove('show'), 1500);
+}
+
+function saveState(showIndicator = true) {
+try {
+const state = {
+seed: currentSeed,
+lang: currentLang,
+studentName: document.getElementById('studentName').value,
+studentClass: document.getElementById('studentClass').value,
+examDate: document.getElementById('examDate').value,
+answers: getSelectedAnswers(),
+writingAnswers: getWritingAnswers(),
+timeRemaining: timeRemaining,
+answersVisible: answersVisible,
+savedAt: Date.now()
+};
+localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+if (showIndicator) showSaveIndicator();
+} catch (e) { console.error('خطأ في الحفظ:', e); }
+}
+
+function loadState() {
+try {
+const saved = localStorage.getItem(STORAGE_KEY);
+if (saved) return JSON.parse(saved);
+} catch (e) { console.error('خطأ في التحميل:', e); }
+return null;
+}
+
+function getSelectedAnswers() {
+const answers = {};
+for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+const selected = document.querySelector(`input[name="q${i}"]:checked`);
+if (selected) answers[i] = selected.value;
+}
+return answers;
+}
+
+function getWritingAnswers() {
+const answers = {};
+for (let i = 0; i < 3; i++) {
+const ta = document.getElementById(`writing-${i}`);
+if (ta && ta.value.trim()) answers[i] = ta.value;
+}
+return answers;
+}
+
+function restoreAnswers(answers) {
+if (!answers) return;
+for (const [idx, val] of Object.entries(answers)) {
+const radio = document.querySelector(`input[name="q${idx}"][value="${val}"]`);
+if (radio) radio.checked = true;
+}
+}
+
+function restoreWritingAnswers(answers) {
+if (!answers) return;
+for (const [idx, val] of Object.entries(answers)) {
+const ta = document.getElementById(`writing-${idx}`);
+if (ta) ta.value = val;
+}
+}
+
+function clearProgress() {
+const confirmMsg = currentLang === 'ar'
+? '⚠️ هل أنت متأكد من مسح كل التقدم؟'
+: '⚠️ Are you sure you want to clear all progress?';
+if (confirm(confirmMsg)) {
+localStorage.removeItem(STORAGE_KEY);
+location.reload();
+}
+}
+
+function setupAnswerListeners() {
+document.getElementById('exam-content').addEventListener('change', (e) => {
+if (e.target.type === 'radio') saveState();
+});
+document.getElementById('exam-content').addEventListener('input', (e) => {
+if (e.target.tagName === 'TEXTAREA') saveState(false);
+});
+}
+
+function setupInputListeners() {
+['studentName', 'studentClass', 'examDate'].forEach(id => {
+const el = document.getElementById(id);
+if (el) {
+el.addEventListener('input', () => saveState(false));
+el.addEventListener('blur', () => saveState());
+}
+});
+}
+
+// ==================== بيانات الامتحان ====================
+const originalExamData = {
+sections: [
+// ========== القسم 1: أسئلة النص الشعري ==========
+{
+id: 'sec1',
+title: { ar: '🔹 القسم الأول: أسئلة النص الشعري', en: '🔹 Section 1: Poetic Text Questions' },
+questions: [
+{
+q: { ar: 'ما الفكرة الرئيسية التي يدور حولها البيتان (العاشر والحادي عشر)؟', en: 'What is the main idea of verses 10 and 11?' },
+options: [
+{ ar: 'عجز الشعر والنثر عن الإحاطة بعظمة فتح العمورية', en: 'The inability of poetry and prose to encompass the greatness of the conquest of Amorium' },
+{ ar: 'وصف جمال الطبيعة في ساحة المعركة', en: 'Describing the beauty of nature on the battlefield' },
+{ ar: 'مدح النجوم والكواكب', en: 'Praising stars and planets' },
+{ ar: 'الحديث عن الحب والغزل', en: 'Talking about love and romance' }
+],
+correct: 0,
+answer: { ar: 'البيتان يتحدثان عن عظمة فتح العمورية التي لا يمكن للشعر أو النثر أن يحيطا بها', en: 'The two verses talk about the greatness of the conquest of Amorium which poetry and prose cannot encompass' }
+},
+{
+q: { ar: 'حدد اثنين من العواطف المسيطرة على الشاعر في القصيدة السابقة:', en: 'Identify two dominant emotions of the poet in the previous poem:' },
+options: [
+{ ar: 'الفخر والاعتزاز بالنصر، والازدراء للخرافات', en: 'Pride in victory, and disdain for superstitions' },
+{ ar: 'الحزن والأسى', en: 'Sadness and sorrow' },
+{ ar: 'الخوف والقلق', en: 'Fear and anxiety' },
+{ ar: 'الغضب والحنين', en: 'Anger and nostalgia' }
+],
+correct: 0,
+answer: { ar: 'الفخر بالانتصار، والازدراء للخرافات والتنجيم', en: 'Pride in victory, and disdain for superstitions and astrology' }
+},
+{
+q: { ar: 'ما المقصود بـ (الخميس) في قوله: "بَيْنَ الْخَمِيسَيْنِ"؟', en: 'What is meant by (Al-Khameesayn)?' },
+options: [
+{ ar: 'الجيشان المتنازعان', en: 'The two opposing armies' },
+{ ar: 'يوم الخميس', en: 'Thursday' },
+{ ar: 'النجوم', en: 'The stars' },
+{ ar: 'الكتب', en: 'The books' }
+],
+correct: 0,
+answer: { ar: 'الخميسان: الجيشان المتنازعان (استعارة)', en: 'Al-Khameesayn: the two opposing armies (metaphor)' }
+},
+{
+q: { ar: 'ما المقصود بـ (القشب) في الصورة البيانية "تبرز الأرض في أثوابها القشب"؟', en: 'What is meant by (Al-Qashab) in the imagery?' },
+options: [
+{ ar: 'الثياب الخضراء المزهرة (تشبيه للنبات)', en: 'Green flowering garments (metaphor for plants)' },
+{ ar: 'الثياب البيضاء', en: 'White garments' },
+{ ar: 'الثياب الحمراء', en: 'Red garments' },
+{ ar: 'الثياب السوداء', en: 'Black garments' }
+],
+correct: 0,
+answer: { ar: 'القشب: الثياب المخططة أو الملونة، شبه الأرض بالثوب الموشى بالنبات', en: 'Al-Qashab: striped or colored garments, the earth is likened to a garment embroidered with plants' }
+},
+{
+q: { ar: 'ما المقصود بـ (المنى) في السياق الشعري؟', en: 'What is meant by (Al-Muna) in the poetic context?' },
+options: [
+{ ar: 'الأمنيات والآمال', en: 'Wishes and hopes' },
+{ ar: 'المنايا (الموت)', en: 'Death' },
+{ ar: 'المنازل', en: 'Homes' },
+{ ar: 'المناجم', en: 'Mines' }
+],
+correct: 0,
+answer: { ar: 'المنى: جمع منية، أي الأمنيات والآمال', en: 'Al-Muna: plural of Muniyah, meaning wishes and hopes' }
+},
+{
+q: { ar: 'اشرح أثراً بديعياً من الأبيات (الثامن إلى العاشر): "يَقْضُونَ بِالْأَمْرِ عَنْهَا وَهِيَ غَافِلَةٌ / مَا دَارَ فِي فُلْكٍ مِنْهَا وَلَا قُطُبِ"', en: 'Explain a rhetorical device from verses 8-10' },
+options: [
+{ ar: 'تقديم (غافلة) للتعظيم، واستعارة مكنية في (غافلة) حيث شبه الأبراج بإنسان يغفل', en: 'Advancing (ghaflah) for glorification, and personification in (ghaflah) where constellations are likened to an ignorant person' },
+{ ar: 'طباق فقط', en: 'Antithesis only' },
+{ ar: 'جناس تام فقط', en: 'Perfect pun only' },
+{ ar: 'لا يوجد محسن بديعي', en: 'No rhetorical device' }
+],
+correct: 0,
+answer: { ar: 'استعارة مكنية: شبه الأبراج بإنسان يقضي بالأمر وهو غافل، وحذف المشبه وذكر شيء من لوازمه', en: 'Personification: constellations are likened to a person who judges while ignorant' }
+},
+{
+q: { ar: 'حدد المحسن البديعي في البيت الأول: "السَّيْفُ أَصْدَقُ أَنْبَاءً مِنَ الكُتُبِ / فِي حَدِّهِ الحَدُّ بَيْنَ الجِدِّ وَاللَّعِبِ"', en: 'Identify the rhetorical device in the first verse' },
+options: [
+{ ar: 'جناس ناقص بين (حدِّه) و(الحدُّ) و(الجد) و(اللعب) طباق', en: 'Imperfect pun between (haddihi) and (al-haddu), and antithesis between (جد) and (لعب)' },
+{ ar: 'طباق فقط', en: 'Antithesis only' },
+{ ar: 'سجع فقط', en: 'Rhyme only' },
+{ ar: 'لا يوجد محسن', en: 'No device' }
+],
+correct: 0,
+answer: { ar: 'جناس ناقص بين (حَدِّه) و(الحَدُّ)، وطباق بين (الجد) و(اللعب)', en: 'Imperfect pun between (haddihi) and (al-haddu), and antithesis between (جد) and (لعب)' }
+},
+{
+q: { ar: 'اذكر ملمحين من ملامح شخصية الشاعر من خلال فهمك للأبيات:', en: 'Mention two traits of the poet\'s personality:' },
+options: [
+{ ar: 'شجاع مقدام، عقلاني لا يؤمن بالخرافات', en: 'Brave and rational, does not believe in superstitions' },
+{ ar: 'جبان خائف من المواجهة', en: 'Cowardly and afraid of confrontation' },
+{ ar: 'منجم يؤمن بالأبراج', en: 'Astrologer who believes in horoscopes' },
+{ ar: 'شاعر غزل رومانسي', en: 'Romantic love poet' }
+],
+correct: 0,
+answer: { ar: 'شجاع (يمجد السيف)، عقلاني (يرفض الخرافات والتنجيم)', en: 'Brave (glorifies the sword), rational (rejects superstitions and astrology)' }
+},
+{
+q: { ar: 'يقول المتنبي: "وَمَا نَالَ الْعُلَا مَنْ لَمْ يُصِبْهُ / مَخَايِلُ الْبِيضِ مِنْ خَافِقِ الصَّوَارِمِ". هل ترى اتفاقاً بين البيتين في علاقة السيف بالنصر؟', en: 'Do you see agreement between the two verses regarding the sword\'s relation to victory?' },
+options: [
+{ ar: 'نعم، كلاهما يرى أن السيف هو طريق المجد والعلا', en: 'Yes, both see the sword as the path to glory' },
+{ ar: 'لا، أبو تمام يمدح الكتب والمتنبي يمدح السيف', en: 'No, Abu Tammam praises books and Al-Mutanabi praises the sword' },
+{ ar: 'لا يوجد اتفاق ولا اختلاف', en: 'Neither agreement nor disagreement' },
+{ ar: 'الاتفاق جزئي فقط', en: 'Partial agreement only' }
+],
+correct: 0,
+answer: { ar: 'نعم، كلا الشاعرين يرى أن السيف هو وسيلة النصر والمجد والعلا', en: 'Yes, both poets see the sword as the means of victory, glory, and eminence' }
+},
+{
+q: { ar: 'ما سبب غلبة الأسلوب الخبري على القصيدة السابقة؟', en: 'Why does the declarative style dominate the poem?' },
+options: [
+{ ar: 'لأن الشاعر يقرر حقائق ويثبت أفكاراً (الحرب أفضل من الكتب، بطلان الخرافات)', en: 'Because the poet states facts and proves ideas (war is better than books, invalidity of superstitions)' },
+{ ar: 'لأنه يطلب شيئاً', en: 'Because he is asking for something' },
+{ ar: 'لأنه يعبر عن انفعال مفاجئ', en: 'Because he expresses sudden emotion' },
+{ ar: 'لأنه يتعجب', en: 'Because he is expressing wonder' }
+],
+correct: 0,
+answer: { ar: 'ليقرر حقائق ويثبت أفكاراً بقوة وثبات، مما يعطي القصيدة طابع اليقين والحسم', en: 'To state facts and prove ideas with strength and certainty, giving the poem a tone of conviction and decisiveness' }
+}
+]
+},
+// ========== القسم 2: أسئلة القواعد ==========
+{
+id: 'sec2',
+title: { ar: '🔹 القسم الثاني: أسئلة القواعد (النحو)', en: '🔹 Section 2: Grammar Questions' },
+questions: [
+{
+q: { ar: 'حدد (اسم إن) و(خبرها) في الجملة: "(وإن أمراً عظيماً يجهز لنا ما لم نزل)"', en: 'Identify the noun and predicate of (Inna) in: "وإن أمراً عظيماً يجهز لنا ما لم نزل"' },
+options: [
+{ ar: 'اسم إن: (أمراً) - خبر إن: (عظيماً) - كلاهما نكرة', en: 'Noun of Inna: (Amran), Predicate of Inna: (Adheeman) - both indefinite' },
+{ ar: 'اسم إن: (عظيماً) - خبر إن: (أمراً)', en: 'Noun: (Adheeman), Predicate: (Amran)' },
+{ ar: 'اسم إن: (يجهز) - خبر إن: (أمراً)', en: 'Noun: (Yujhiz), Predicate: (Amran)' },
+{ ar: 'لا يوجد اسم إن ولا خبر', en: 'No noun or predicate of Inna' }
+],
+correct: 0,
+answer: { ar: 'اسم إن: (أمراً) - خبر إن: (عظيماً) - وكلاهما اسم مفرد نكرة', en: 'Noun of Inna: (Amran), Predicate of Inna: (Adheeman) - both are indefinite singular nouns' }
+},
+{
+q: { ar: 'حدد (اسم إن) و(خبرها) في الجملة: "(لعلك تسألت امتحاناً سهلاً)"', en: 'Identify the noun and predicate of (La\'alla) in: "لعلك تسألت امتحاناً سهلاً"' },
+options: [
+{ ar: 'اسم لعل: (الكاف في لعلك) - خبرها: جملة فعلية (تسألت امتحاناً سهلاً)', en: 'Noun of La\'alla: the kaf in (La\'allaka), Predicate: verbal sentence (tas\'alta)' },
+{ ar: 'اسم لعل: (تسألت) - خبرها: (سهلاً)', en: 'Noun: (Tas\'alta), Predicate: (Sahlan)' },
+{ ar: 'اسم لعل: (امتحاناً) - خبرها: (سهلاً)', en: 'Noun: (Imtihan an), Predicate: (Sahlan)' },
+{ ar: 'لا يوجد اسم لعل ولا خبر', en: 'No noun or predicate' }
+],
+correct: 0,
+answer: { ar: 'اسم لعل: ضمير متصل (الكاف)، خبرها: جملة فعلية (تسألت امتحاناً سهلاً)', en: 'Noun: attached pronoun (kaf), Predicate: verbal sentence' }
+},
+{
+q: { ar: 'حدد (اسم إن) و(خبرها) في الجملة: "(كأن وجه الفتاة قمر منير)"', en: 'Identify the noun and predicate of (Ka\'anna) in: "كأن وجه الفتاة قمر منير"' },
+options: [
+{ ar: 'اسم كأن: (وجه) - خبر كأن: (قمرٌ منيرٌ)', en: 'Noun of Ka\'anna: (Wajhu), Predicate: (Qamarun Muneerun)' },
+{ ar: 'اسم كأن: (الفتاة) - خبرها: (منير)', en: 'Noun: (Al-Fatah), Predicate: (Muneer)' },
+{ ar: 'اسم كأن: (قمر) - خبرها: (وجه)', en: 'Noun: (Qamar), Predicate: (Wajh)' },
+{ ar: 'لا يوجد اسم كأن ولا خبر', en: 'No noun or predicate' }
+],
+correct: 0,
+answer: { ar: 'اسم كأن: (وجهُ) - خبر كأن: (قمرٌ منيرٌ)', en: 'Noun: (Wajhu), Predicate: (Qamarun Muneerun)' }
+}
+]
+},
+// ========== القسم 3: الأخطاء الوظيفية ==========
+{
+id: 'sec3',
+title: { ar: '🔹 القسم الثالث: الأخطاء الوظيفية', en: '🔹 Section 3: Functional Errors' },
+questions: [
+{
+q: { ar: 'صحح الخطأ الوظيفي في الجملة: "يصبر مع العسر"', en: 'Correct the functional error: "يصبر مع العسر"' },
+options: [
+{ ar: 'يصبر عند العسر (استبدال (مع) بـ (عند))', en: 'Yasbir \'inda al-\'usr (replacing (ma\'a) with (\'inda))' },
+{ ar: 'يصبر مع العسر (لا يوجد خطأ)', en: 'Yasbir ma\'a al-\'usr (no error)' },
+{ ar: 'يصبر على العسر', en: 'Yasbir \'ala al-\'usr' },
+{ ar: 'يصبر في العسر', en: 'Yasbir fi al-\'usr' }
+],
+correct: 0,
+answer: { ar: 'الصواب: يصبر عند العسر، لأن (مع) تفيد المصاحبة، والعسر لا يُصاحَب بل يُنتظر حلوله', en: 'Correct: Yasbir \'inda al-\'usr, because (ma\'a) implies accompaniment, while hardship is not accompanied but awaited' }
+},
+{
+q: { ar: 'صحح الخطأ الوظيفي في الجملة: "ينظر الطالب يكتب الولد"', en: 'Correct the functional error: "ينظر الطالب يكتب الولد"' },
+options: [
+{ ar: 'ينظر الطالب إلى الولد وهو يكتب (إضافة (إلى) و(وهو))', en: 'Yanzur al-talib ila al-walad wa huwa yaktub (adding (ila) and (wa huwa))' },
+{ ar: 'ينظر الطالب يكتب الولد (لا يوجد خطأ)', en: 'No error' },
+{ ar: 'ينظر الطالب عن الولد', en: 'Yanzur al-talib \'an al-walad' },
+{ ar: 'ينظر الطالب من الولد', en: 'Yanzur al-talib min al-walad' }
+],
+correct: 0,
+answer: { ar: 'الصواب: ينظر الطالب إلى الولد وهو يكتب، لأن (نظر) تتعدى بـ(إلى)', en: 'Correct: Yanzur al-talib ila al-walad wa huwa yaktub, because (nazara) takes (ila)' }
+},
+{
+q: { ar: 'صحح الخطأ الوظيفي في الجملة: "يصعب النحو"', en: 'Correct the functional error: "يصعب النحو"' },
+options: [
+{ ar: 'يَصعُب تعلُّمُ النحو (إضافة المصدر المنسبك من الفعل) أو يَصعُبُ النحوُ على الطالب', en: 'Yas\'ubu ta\'allumu al-nahw or Yas\'ubu al-nahwu \'ala al-talib' },
+{ ar: 'يصعب النحو (لا يوجد خطأ)', en: 'No error' },
+{ ar: 'يصعب من النحو', en: 'Yas\'ubu min al-nahw' },
+{ ar: 'يصعب في النحو', en: 'Yas\'ubu fi al-nahw' }
+],
+correct: 0,
+answer: { ar: 'الصواب: يَصعُب تعلُّمُ النحو، لأن (صَعُب) لا يُسند مباشرة إلى الشيء بل إلى فعله أو تعلّمه', en: 'Correct: Yas\'ubu ta\'allumu al-nahw, because (sa\'uba) is not directly attributed to the thing but to its learning' }
+},
+{
+q: { ar: 'ضع خطاً تحت الخطأ الوظيفي في الجملة: "تعود أيام الطفل"', en: 'Identify the error in: "تعود أيام الطفل"' },
+options: [
+{ ar: 'الخطأ: (أيام) - الصواب: تعود الطفلُ على الأيام أو تعود على الأيام', en: 'Error: (ayyam) - Correct: Ta\'awwada al-tiflu \'ala al-ayyam' },
+{ ar: 'لا يوجد خطأ', en: 'No error' },
+{ ar: 'الخطأ: (تعود)', en: 'Error: (Ta\'awwad)' },
+{ ar: 'الخطأ: (الطفل)', en: 'Error: (al-tifl)' }
+],
+correct: 0,
+answer: { ar: 'الخطأ في (أيام) - الصواب: تعود الطفلُ على الأيام (لأن (تعود) تتعدى بـ(على))', en: 'Error in (ayyam) - Correct: Ta\'awwada al-tiflu \'ala al-ayyam' }
+},
+{
+q: { ar: 'ضع خطاً تحت الخطأ الوظيفي في الجملة: "مختلف العلم الطالب"', en: 'Identify the error in: "مختلف العلم الطالب"' },
+options: [
+{ ar: 'الخطأ في (مختلف) - الصواب: يختلف الطالب في العلم أو طالب العلم مختلف', en: 'Error in (mukhtalif) - Correct: Yakhtalif al-talib fi al-\'ilm' },
+{ ar: 'لا يوجد خطأ', en: 'No error' },
+{ ar: 'الخطأ في (العلم)', en: 'Error in (al-\'ilm)' },
+{ ar: 'الخطأ في (الطالب)', en: 'Error in (al-talib)' }
+],
+correct: 0,
+answer: { ar: 'الخطأ في (مختلف) - الصواب: يختلف الطالب في العلم (لأن (اختلف) لا يُسند إلى الفاعل بهذا المعنى)', en: 'Error in (mukhtalif) - Correct: Yakhtalif al-talib fi al-\'ilm' }
+}
+]
+},
+// ========== القسم 4: الكتابة والتعبير ==========
+{
+id: 'sec4',
+title: { ar: '🔹 القسم الرابع: الكتابة والتعبير (لا يُصحح تلقائياً)', en: '🔹 Section 4: Writing (Not auto-graded)' },
+questions: [
+{
+q: { ar: '📝 مقال إنشائي: تستضيف دولة الإمارات مؤتمراً عالمياً بعنوان: "(الذكاء الاصطناعي والتعليم.... التحديات والحلول)". اكتب مقالاً إنشائياً حول أهمية استثمار الذكاء الاصطناعي في التعليم، وكيف يمكن تحقيق أكبر استفادة منه، وما هي التحديات التي يواجهها وكيفية التغلب عليها.', en: '📝 Essay: Write about AI in education - challenges and solutions' },
+isWriting: true,
+writingId: 0,
+options: [
+{ ar: 'سأكتب المقال في المربع أدناه', en: 'I will write the essay below' },
+{ ar: 'سأتخطى هذا السؤال', en: 'Skip this question' }
+],
+correct: 0,
+answer: { ar: 'يجب أن يتضمن المقال: مقدمة، عرض (أهمية الذكاء الاصطناعي في التعليم، التحديات، الحلول)، خاتمة. مع مراعاة التسلسل المنطقي وسلامة اللغة.', en: 'The essay should include: introduction, body (importance of AI, challenges, solutions), conclusion. With logical sequence and language accuracy.' }
+},
+{
+q: { ar: '📝 قصة قصيرة: "أحمد" هو أحد منظمي قمة المناخ العالمية (COP 28)، وهو من يحقق حلمه، ولم يتوقع أن يكون له دور كبير في هذا التحدي. فقد كان يحرص منذ صغره على الحفاظ على البيئة والمناخ. اكتب قصته منذ بداية حلمه وإصراره على حماية البيئة، وصولاً إلى مشاركته في تنظيم هذه القمة العالمية.', en: '📝 Short story: Write about Ahmad, a COP 28 organizer who achieved his dream' },
+isWriting: true,
+writingId: 1,
+options: [
+{ ar: 'سأكتب القصة في المربع أدناه', en: 'I will write the story below' },
+{ ar: 'سأتخطى هذا السؤال', en: 'Skip this question' }
+],
+correct: 0,
+answer: { ar: 'يجب أن تتضمن القصة: الشخصيات، الزمان، المكان، الأحداث، العقدة، الحل. مع استخدام تقنيات السرد المناسبة.', en: 'The story should include: characters, time, place, events, climax, resolution. Using appropriate narrative techniques.' }
+},
+{
+q: { ar: '📝 مقال إنشائي: من الجميل أن يكون لديك العديد من الطموحات والآمال، ولكن الأجمل أن تخطط لها وكيف تحققها. اكتب مقالاً إنشائياً حول "أهمية التخطيط للمستقبل"، وكيف تصل إلى ما تريد في المستقبل، وما السبيل إلى ذلك، مدعماً بأدلة وشواهد وخبرات.', en: '📝 Essay: Write about "The importance of planning for the future"' },
+isWriting: true,
+writingId: 2,
+options: [
+{ ar: 'سأكتب المقال في المربع أدناه', en: 'I will write the essay below' },
+{ ar: 'سأتخطى هذا السؤال', en: 'Skip this question' }
+],
+correct: 0,
+answer: { ar: 'يجب أن يتضمن المقال: مقدمة، عرض (أهمية التخطيط، كيفية الوصول للأهداف، الأدلة والشواهد)، خاتمة. مع مراعاة المعايير الفنية.', en: 'The essay should include: introduction, body (importance of planning, how to achieve goals, evidence), conclusion.' }
+}
+]
+}
+]
+};
+
+function shuffleArray(array) {
+const arr = [...array];
+for (let i = arr.length - 1; i > 0; i--) {
+const j = Math.floor(rng() * (i + 1));
+[arr[i], arr[j]] = [arr[j], arr[i]];
+}
+return arr;
+}
+
+function prepareShuffledExam() {
+rng = mulberry32(currentSeed);
+examData = JSON.parse(JSON.stringify(originalExamData));
+correctAnswersMap = {};
+let globalIdx = 0;
+examData.sections.forEach((section) => {
+section.questions = shuffleArray(section.questions);
+section.questions.forEach((q) => {
+if (!q.isWriting) {
+const optionsWithCorrect = q.options.map((opt, idx) => ({
+option: opt,
+isCorrect: idx === q.correct
+}));
+const shuffledOptions = shuffleArray(optionsWithCorrect);
+q.options = shuffledOptions.map(o => o.option);
+q.correct = shuffledOptions.findIndex(o => o.isCorrect);
+correctAnswersMap[globalIdx] = String.fromCharCode(97 + q.correct);
+}
+globalIdx++;
+});
+});
+}
+
+function reshuffleExam() {
+const confirmMsg = currentLang === 'ar'
+? '🔄 سيتم إنشاء أسئلة جديدة ومسح إجاباتك الحالية. هل أنت متأكد؟'
+: '🔄 New questions will be generated and your current answers will be cleared. Are you sure?';
+if (confirm(confirmMsg)) {
+currentSeed = Date.now();
+timeRemaining = TOTAL_TIME;
+answersVisible = false;
+prepareShuffledExam();
+renderExam();
+saveState();
+alert(currentLang === 'ar' ? '🎲 تم تغيير الأسئلة! حظاً موفقاً! 🍀' : '🎲 Questions changed! Good luck! 🍀');
+window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+}
+
+function setLanguage(lang) {
+currentLang = lang;
+document.documentElement.lang = lang;
+document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
+document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+document.body.classList.toggle('en-mode', lang === 'en');
+document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+el.innerHTML = lang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+});
+renderExam();
+saveState(false);
+}
+
+function renderExam() {
+const container = document.getElementById('exam-content');
+const labels = {
+ar: { option: ['أ', 'ب', 'ج', 'د'], answer: '✅ الإجابة النموذجية:' },
+en: { option: ['A', 'B', 'C', 'D'], answer: '✅ Model Answer:' }
+};
+const lbl = labels[currentLang];
+const isRTL = currentLang === 'ar';
+let html = '';
+let globalIdx = 0;
+
+examData.sections.forEach((section) => {
+html += `<section class="bg-white p-6 rounded-2xl shadow-lg border-2 border-amber-100">
+<h2 class="text-xl font-bold mb-4 text-amber-800">${section.title[currentLang]}</h2>
+<ol class="space-y-4 text-sm">`;
+
+section.questions.forEach((q) => {
+const borderSide = isRTL ? 'border-r-4 pr-4' : 'border-l-4 pl-4';
+
+if (q.isWriting) {
+// أسئلة الكتابة
+html += `<li class="${borderSide} border-amber-500 py-3 bg-amber-50 rounded-lg" id="q-${globalIdx}">
+<strong class="text-amber-900">${globalIdx + 1}.</strong> ${q.q[currentLang]}<br>
+<textarea id="writing-${q.writingId}" class="writing-area mt-3" placeholder="${currentLang === 'ar' ? 'اكتب إجابتك هنا...' : 'Write your answer here...'}"></textarea>
+<div class="answer-box text-green-700 mt-2 font-medium ${answersVisible ? '' : 'hidden'} bg-green-50 rounded-lg p-2">
+${lbl.answer} ${q.answer[currentLang]}
+</div>
+</li>`;
+} else {
+// الأسئلة الموضوعية
+html += `<li class="${borderSide} border-amber-400 py-2" id="q-${globalIdx}">
+<strong>${globalIdx + 1}.</strong> ${q.q[currentLang]}<br>`;
+q.options.forEach((opt, oIdx) => {
+const radioSide = isRTL ? 'mr-4 ml-2' : 'ml-4 mr-2';
+html += `<label class="cursor-pointer block mt-1 ${isRTL ? 'mr-4' : 'ml-4'} hover:bg-amber-50 rounded-lg p-1 transition">
+<input type="radio" name="q${globalIdx}" value="${String.fromCharCode(97 + oIdx)}" class="${radioSide}">
+${lbl.option[oIdx]}) ${opt[currentLang]}
+</label>`;
+});
+html += `<div class="answer-box text-green-700 mt-2 font-medium ${answersVisible ? '' : 'hidden'} bg-green-50 rounded-lg p-2">
+${lbl.answer} ${lbl.option[q.correct]}) ${q.options[q.correct][currentLang]} — ${q.answer[currentLang]}
+</div></li>`;
+}
+globalIdx++;
+});
+html += `</ol></section>`;
+});
+
+container.innerHTML = html;
+}
+
+function startTimer() {
+document.getElementById('timer-container').style.display = 'block';
+updateTimerDisplay();
+timerInterval = setInterval(() => {
+timeRemaining--;
+updateTimerDisplay();
+if (timeRemaining % 5 === 0) saveState(false);
+if (timeRemaining <= 300) document.getElementById('timer').classList.add('timer-warning');
+if (timeRemaining <= 0) {
+clearInterval(timerInterval);
+alert(currentLang === 'ar' ? "⏰ انتهى الوقت! سأصحح إجاباتك الآن." : "⏰ Time's up! Let me grade your answers.");
+gradeExam();
+}
+}, 1000);
+}
+
+function updateTimerDisplay() {
+const minutes = Math.floor(timeRemaining / 60);
+const seconds = timeRemaining % 60;
+document.getElementById('timer').textContent = `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+}
+
+function toggleAnswers() {
+answersVisible = !answersVisible;
+document.querySelectorAll('.answer-box').forEach(el => {
+el.classList.toggle('hidden', !answersVisible);
+});
+saveState(false);
+}
+
+function gradeExam() {
+let correctCount = 0;
+let totalObjective = 0;
+const sectionScores = new Array(TOTAL_SECTIONS).fill(0);
+const sectionTotals = new Array(TOTAL_SECTIONS).fill(0);
+
+let globalIdx = 0;
+examData.sections.forEach((section, secIdx) => {
+section.questions.forEach((q) => {
+if (!q.isWriting) {
+totalObjective++;
+sectionTotals[secIdx]++;
+const selected = document.querySelector(`input[name="q${globalIdx}"]:checked`);
+const li = document.getElementById(`q-${globalIdx}`);
+if (li) {
+const isCorrect = selected && selected.value === correctAnswersMap[globalIdx];
+if (isCorrect) {
+correctCount++;
+li.classList.add('correct');
+li.classList.remove('incorrect');
+sectionScores[secIdx]++;
+} else {
+li.classList.add('incorrect');
+li.classList.remove('correct');
+}
+}
+}
+globalIdx++;
+});
+});
+
+const score = totalObjective > 0 ? Math.round((correctCount / totalObjective) * 100) : 0;
+document.getElementById('res-total').textContent = `${score} / 100`;
+document.getElementById('res-name').textContent = document.getElementById('studentName').value || (currentLang === 'ar' ? 'بطل' : 'Champion');
+document.getElementById('res-date').textContent = new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-AE' : 'en-US');
+
+const performanceContainer = document.getElementById('sections-performance');
+performanceContainer.innerHTML = '';
+examData.sections.forEach((section, idx) => {
+const sectionNote = idx === 3 ? (currentLang === 'ar' ? ' (تصحح يدوياً)' : ' (Manual grading)') : '';
+performanceContainer.innerHTML += `
+<div class="flex justify-between items-center">
+<span class="text-gray-700">${section.title[currentLang]}${sectionNote}</span>
+<span class="font-bold text-amber-700">${sectionScores[idx]}/${sectionTotals[idx]}</span>
+</div>`;
+});
+
+const badge = document.getElementById('success-badge');
+document.getElementById('success-percent').textContent = `${score}%`;
+
+if (currentLang === 'ar') {
+if (score >= 90) { badge.textContent = '🌟 ممتاز جداً! 🌟'; badge.className = 'success-badge grade-excellent'; }
+else if (score >= 75) { badge.textContent = '👏 ممتاز! 👏'; badge.className = 'success-badge grade-good'; }
+else if (score >= 50) { badge.textContent = '👍 جيد'; badge.className = 'success-badge grade-pass'; }
+else { badge.textContent = '💪 حاول مرة أخرى'; badge.className = 'success-badge grade-fail'; }
+} else {
+if (score >= 90) { badge.textContent = '🌟 Outstanding! 🌟'; badge.className = 'success-badge grade-excellent'; }
+else if (score >= 75) { badge.textContent = '👏 Excellent! 👏'; badge.className = 'success-badge grade-good'; }
+else if (score >= 50) { badge.textContent = '👍 Good'; badge.className = 'success-badge grade-pass'; }
+else { badge.textContent = '💪 Try Again'; badge.className = 'success-badge grade-fail'; }
+}
+
+document.getElementById('results-panel').classList.remove('hidden');
+document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+if (timerInterval) clearInterval(timerInterval);
+}
+
+function sendResultsToEmail() {
+const btn = document.getElementById('sendEmailBtn');
+const status = document.getElementById('emailStatus');
+btn.disabled = true;
+btn.textContent = currentLang === 'ar' ? '⏳ جاري الإرسال...' : '⏳ Sending...';
+
+const name = document.getElementById('studentName').value || 'N/A';
+const studentClass = document.getElementById('studentClass').value || 'N/A';
+const date = document.getElementById('examDate').value || new Date().toLocaleDateString();
+const score = document.getElementById('res-total').textContent;
+const successRate = document.getElementById('success-percent').textContent;
+const badge = document.getElementById('success-badge').textContent;
+
+let questionsHTML = '';
+let globalIdx = 0;
+examData.sections.forEach((section, sectionIdx) => {
+questionsHTML += `<tr style="background: linear-gradient(135deg, #b45309, #92400e); color: white;">
+<td colspan="5" style="padding: 12px; font-weight: bold; font-size: 14px;">
+📌 ${currentLang === 'ar' ? 'القسم' : 'Section'} ${sectionIdx + 1}: ${section.title[currentLang]}
+</td></tr>`;
+
+section.questions.forEach((q) => {
+if (q.isWriting) {
+const ta = document.getElementById(`writing-${q.writingId}`);
+const writingText = ta ? ta.value : '';
+questionsHTML += `<tr style="background: #fffbeb; border-right: 4px solid #f59e0b;">
+<td style="padding: 10px; border: 1px solid #e5e7eb; text-align: center; font-weight: bold; width: 35px;">${globalIdx + 1}</td>
+<td style="padding: 10px; border: 1px solid #e5e7eb; width: 35%;">
+<strong style="color: #92400e;">${currentLang === 'ar' ? '❓ السؤال:' : '❓ Question:'}</strong><br>
+<span style="color: #374151; font-size: 13px;">${q.q[currentLang]}</span>
+</td>
+<td colspan="3" style="padding: 10px; border: 1px solid #e5e7eb;">
+<strong style="color: #b45309;">${currentLang === 'ar' ? '✍️ إجابة الطالب:' : '✍️ Student Answer:'}</strong><br>
+<div style="color: #374151; font-size: 13px; white-space: pre-wrap; margin-top: 5px; background: white; padding: 8px; border-radius: 6px;">${writingText || (currentLang === 'ar' ? '(لم يجب)' : '(No answer)')}</div>
+</td>
+</tr>`;
+} else {
+const selected = document.querySelector(`input[name="q${globalIdx}"]:checked`);
+const selectedValue = selected ? selected.value : null;
+const correctValue = correctAnswersMap[globalIdx];
+const isCorrect = selectedValue === correctValue;
+
+let studentAnswerText = currentLang === 'ar' ? '❌ لم يجب' : '❌ No answer';
+let studentAnswerColor = '#dc2626';
+if (selectedValue) {
+const selectedIndex = selectedValue.charCodeAt(0) - 97;
+studentAnswerText = q.options[selectedIndex][currentLang];
+studentAnswerColor = isCorrect ? '#059669' : '#dc2626';
+}
+const correctAnswerText = q.options[q.correct][currentLang];
+const rowBg = isCorrect ? '#f0fdf4' : '#fef2f2';
+const borderLeft = isCorrect ? '4px solid #10b981' : '4px solid #ef4444';
+
+questionsHTML += `<tr style="background: ${rowBg}; border-right: ${borderLeft};">
+<td style="padding: 10px; border: 1px solid #e5e7eb; text-align: center; font-weight: bold; vertical-align: top; width: 35px;">${globalIdx + 1}</td>
+<td style="padding: 10px; border: 1px solid #e5e7eb; vertical-align: top; width: 35%;">
+<strong style="color: #92400e;">${currentLang === 'ar' ? '❓ السؤال:' : '❓ Question:'}</strong><br>
+<span style="color: #374151; font-size: 13px;">${q.q[currentLang]}</span>
+</td>
+<td style="padding: 10px; border: 1px solid #e5e7eb; vertical-align: top; width: 22%;">
+<strong style="color: ${studentAnswerColor};">${currentLang === 'ar' ? '✍️ إجابة الطالب:' : '✍️ Student Answer:'}</strong><br>
+<span style="color: ${studentAnswerColor}; font-size: 13px;">${studentAnswerText}</span>
+</td>
+<td style="padding: 10px; border: 1px solid #e5e7eb; vertical-align: top; width: 22%;">
+<strong style="color: #059669;">${currentLang === 'ar' ? '✅ الإجابة الصحيحة:' : '✅ Correct Answer:'}</strong><br>
+<span style="color: #059669; font-size: 13px;">${correctAnswerText}</span>
+</td>
+<td style="padding: 10px; border: 1px solid #e5e7eb; text-align: center; vertical-align: middle; width: 60px;">
+${isCorrect
+? '<span style="font-size: 24px;">✅</span><br><span style="color: #059669; font-weight: bold; font-size: 11px;">' + (currentLang === 'ar' ? 'صحيح' : 'Correct') + '</span>'
+: '<span style="font-size: 24px;">❌</span><br><span style="color: #dc2626; font-weight: bold; font-size: 11px;">' + (currentLang === 'ar' ? 'خطأ' : 'Wrong') + '</span>'}
+</td></tr>`;
+}
+globalIdx++;
+});
+});
+
+const answersHTML = `
+<div style="font-family: 'Segoe UI', Tahoma, Arial, sans-serif; direction: ${currentLang === 'ar' ? 'rtl' : 'ltr'};">
+<div style="background: linear-gradient(135deg, #b45309, #92400e); color: white; padding: 20px; border-radius: 10px 10px 0 0; text-align: center;">
+<h2 style="margin: 0; font-size: 22px;">📜 ${currentLang === 'ar' ? 'نتيجة امتحان اللغة العربية' : 'Arabic Language Exam Result'}</h2>
+<p style="margin: 5px 0 0 0; opacity: 0.9;">${currentLang === 'ar' ? 'الصف الثاني عشر - عام' : 'Grade 12 - General'}</p>
+</div>
+<div style="background: #fef3c7; padding: 15px; border: 1px solid #fde68a;">
+<table style="width: 100%; border-collapse: collapse;">
+<tr>
+<td style="padding: 8px; font-weight: bold; color: #92400e;">${currentLang === 'ar' ? '😊 الاسم:' : '😊 Name:'}</td>
+<td style="padding: 8px;">${name}</td>
+<td style="padding: 8px; font-weight: bold; color: #92400e;">${currentLang === 'ar' ? '🏫 الشعبة:' : '🏫 Class:'}</td>
+<td style="padding: 8px;">${studentClass}</td>
+</tr>
+<tr>
+<td style="padding: 8px; font-weight: bold; color: #92400e;">${currentLang === 'ar' ? '📅 التاريخ:' : '📅 Date:'}</td>
+<td style="padding: 8px;">${date}</td>
+<td style="padding: 8px; font-weight: bold; color: #92400e;">${currentLang === 'ar' ? '🏆 التقدير:' : '🏆 Grade:'}</td>
+<td style="padding: 8px;">${badge}</td>
+</tr>
+</table>
+</div>
+<div style="background: white; padding: 20px; text-align: center; border-bottom: 2px solid #e5e7eb;">
+<div style="display: inline-block; margin: 0 15px;">
+<div style="font-size: 32px; font-weight: bold; color: #b45309;">${score}</div>
+<div style="color: #6b7280; font-size: 13px;">${currentLang === 'ar' ? 'الدرجة الكلية (موضوعي)' : 'Total Score (Objective)'}</div>
+</div>
+<div style="display: inline-block; margin: 0 15px;">
+<div style="font-size: 32px; font-weight: bold; color: #059669;">${successRate}%</div>
+<div style="color: #6b7280; font-size: 13px;">${currentLang === 'ar' ? 'نسبة النجاح' : 'Success Rate'}</div>
+</div>
+</div>
+<h3 style="background: #f3f4f6; padding: 12px; margin: 0; color: #1f2937; border-bottom: 2px solid #d1d5db;">
+📝 ${currentLang === 'ar' ? 'تفاصيل الأسئلة والإجابات الكاملة' : 'Full Questions & Answers Details'}
+</h3>
+<table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+<thead>
+<tr style="background: #b45309; color: white;">
+<th style="padding: 10px; border: 1px solid #92400e; width: 35px;">#</th>
+<th style="padding: 10px; border: 1px solid #92400e; width: 35%;">${currentLang === 'ar' ? 'السؤال' : 'Question'}</th>
+<th style="padding: 10px; border: 1px solid #92400e; width: 22%;">${currentLang === 'ar' ? 'إجابة الطالب' : 'Student Answer'}</th>
+<th style="padding: 10px; border: 1px solid #92400e; width: 22%;">${currentLang === 'ar' ? 'الإجابة الصحيحة' : 'Correct Answer'}</th>
+<th style="padding: 10px; border: 1px solid #92400e; width: 60px;">${currentLang === 'ar' ? 'النتيجة' : 'Result'}</th>
+</tr>
+</thead>
+<tbody>${questionsHTML}</tbody>
+</table>
+<div style="background: linear-gradient(135deg, #fef3c7, #fde68a); padding: 15px; border-radius: 0 0 10px 10px; border-top: 2px solid #b45309;">
+<p style="margin: 0; color: #92400e; text-align: center; font-size: 13px;">
+📜 <strong>${currentLang === 'ar' ? 'أحسنت يا بطل! استمر في التألق في اللغة العربية!' : 'Great job, champion! Keep shining in Arabic!'}</strong> 📜
+</p>
+<p style="margin: 5px 0 0 0; color: #92400e; text-align: center; font-size: 12px;">
+${currentLang === 'ar' ? 'تم إرسال هذا التقرير تلقائياً | Mr. Mohammed Hesham' : 'This report was automatically sent | Mr. Mohammed Hesham'}
+</p>
+</div>
+</div>`;
+
+emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+to_email: TARGET_EMAIL,
+student_name: name,
+student_class: studentClass,
+exam_date: date,
+total_score: score,
+success_rate: successRate,
+grade: badge,
+answers_table: answersHTML
+}).then(() => {
+status.textContent = currentLang === 'ar' ? '✅ تم إرسال نتيجتك للمعلم!' : '✅ Your result was sent to the teacher!';
+status.style.color = '#059669';
+btn.textContent = currentLang === 'ar' ? '✓ تم الإرسال' : '✓ Sent';
+}).catch(err => {
+status.textContent = currentLang === 'ar' ? '❌ حدث خطأ، حاول مرة أخرى' : '❌ Something went wrong, try again';
+status.style.color = '#dc2626';
+btn.disabled = false;
+btn.textContent = currentLang === 'ar' ? '📧 حاول مرة أخرى' : '📧 Try Again';
+console.error('EmailJS Error:', err);
+});
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+const savedState = loadState();
+if (savedState && savedState.seed) {
+currentSeed = savedState.seed;
+currentLang = savedState.lang || 'ar';
+timeRemaining = savedState.timeRemaining !== undefined ? savedState.timeRemaining : TOTAL_TIME;
+answersVisible = savedState.answersVisible || false;
+document.documentElement.lang = currentLang;
+document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+document.getElementById('btn-ar').classList.toggle('active', currentLang === 'ar');
+document.getElementById('btn-en').classList.toggle('active', currentLang === 'en');
+document.body.classList.toggle('en-mode', currentLang === 'en');
+document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+el.innerHTML = currentLang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+});
+} else {
+currentSeed = Date.now();
+}
+
+prepareShuffledExam();
+renderExam();
+
+if (savedState) {
+if (savedState.studentName) document.getElementById('studentName').value = savedState.studentName;
+if (savedState.studentClass) document.getElementById('studentClass').value = savedState.studentClass;
+if (savedState.examDate) document.getElementById('examDate').value = savedState.examDate;
+if (savedState.answers) restoreAnswers(savedState.answers);
+if (savedState.writingAnswers) restoreWritingAnswers(savedState.writingAnswers);
+}
+
+setupAnswerListeners();
+setupInputListeners();
+startTimer();
+});
+
+window.addEventListener('beforeunload', () => saveState(false));
+</script>
+</body>
+</html>
